@@ -1,0 +1,37 @@
+docs_engine:
+    type: str
+    choices:
+        - sphinx
+        # - mkdocs
+
+project_name:
+  type: str
+  help: What is the project name?
+
+owner:
+  type: str
+  help: Who is the owner of this project?
+
+use_adr_tools:
+  type: bool
+  help: Do you want to have a set of Decision Records to track important decisions?
+  default: yes
+
+autodoc_enabled:
+  type: bool
+  help: Do you want to enable the autodoc extensions?
+  default: yes
+
+support_markdown:
+  type: bool
+  help: Do you want to support Markdown files?
+  when: "{% if docs_engine == 'sphinx' %}true{% endif %}"
+  default: yes
+
+support_confluence:
+  type: bool
+  help: Do you want to support Publishing documentation to Confluence?
+  default: yes
+
+_subdirectory: "{{ docs_engine }}"
+

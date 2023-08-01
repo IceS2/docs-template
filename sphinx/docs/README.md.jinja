@@ -1,0 +1,50 @@
+# Getting Started with documenting using Sphinx
+
+If you are not familiar with Sphinx it would be a great idea to check out their getting started guide [here](https://www.sphinx-doc.org/en/master/usage/quickstart.html).
+
+**Obs.:** Using `sphinx-quickstart` is not needed since it is already covered by this template.
+
+## Dependencies
+
+The main dependency for this is obviouly Sphinx.
+We recommend installing `Sphinx==7.1.1`.
+
+{%- if support_markdown %}
+### Markdown Support
+
+Since you chose to support markdown, Myst Parser is also needed.
+We recommend installing `myst-parser==2.0.0`.
+{%- endif %}
+
+There are some default configurations already setup but we recommend checking MystParser documentation [here](https://myst-parser.readthedocs.io/en/latest/) to understand how to use it.
+
+{%- if support_confluence %}
+### Confluence Support
+
+Since you chose to support confluence, SphinxContrib ConfluenceBuilder is also needed.
+We recommend intalling `sphinxcontrib-confluencebuilder==2.2.0`.
+{%- endif %}
+
+There are some default configurations already setup but we recommend checking ConfluenceBuilder documentation [here](https://sphinxcontrib-confluencebuilder.readthedocs.io/en/stable/) to understand how to use it.
+
+**IMPORTANT**
+
+In the `conf.py` there are a few fields left with empty strings that need to be filled for this extension to work:
+
+- confluence_space_key
+- confluence_parent_page
+
+**DANGER: Be careful not to commit credentials. The following attributes could be better passed through environment variables at build time**
+
+- confluence_server_url
+- confluence_server_user
+- confluence_server_pass
+
+{%- if use_adr_tools %}
+## Decision Records
+
+It is a good practice to record important decisions for the future.
+One nice and easy way to do this is to use [adr-tools](https://github.com/npryce/adr-tools) to help you manage this.
+
+We already setup the tool so you can start creating your decision records by running `adr new <TITLE>`.
+{%- endif %}

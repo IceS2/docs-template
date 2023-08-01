@@ -1,0 +1,93 @@
+# Configuration file for the Sphinx documentation builder.
+#
+# For the full list of built-in configuration values, see the documentation:
+# https://www.sphinx-doc.org/en/master/usage/configuration.html
+
+# -- Project information -----------------------------------------------------
+# https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
+
+project = '{{project_name}}'
+copyright = '2023, {{owner}}'
+author = '{{owner}}'
+release = '0.0.1'
+
+# -- General configuration ---------------------------------------------------
+# https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
+
+extensions = [
+  {%- if autodoc_enabled %}
+    'sphinx.ext.napoleon',
+    'sphinx.ext.autodoc',
+  {%- endif %}
+  {%- if support_markdown %}
+    'myst_parser',
+  {%- endif %}
+  {%- if support_confluence %}
+    'sphinxcontrib.confluencebuilder',
+  {%- endif %}
+]
+
+{%- if support_markdown %}
+source_suffix = {
+    '.rst': 'restructuredtext',
+    '.txt': 'markdown',
+    '.md': 'markdown'
+}
+{%- endif %}
+
+templates_path = ['_templates']
+exclude_patterns = []
+
+{% if support_markdown %}
+# -- Options for Myst --------------------------------------------------------
+myst_enable_extensions = [
+    'colon_fence',
+    'substitution',
+    'attrs_inline',
+    'attrs_block'
+]
+{%- endif %}
+
+{%- if support_confluence %}
+# -- Options for ConfluenceBuilder -------------------------------------------
+confluence_publish_dryrun = True
+confluence_publish_debug = True
+
+confluence_publish = True
+confluence_space_key = ''
+confluence_parent_page = ''
+confluence_publish_postfix = ' (auto-generated)'
+
+confluence_sourcelink = {
+    'type': 'github',
+    'owner': '',
+    'repo': '',
+    'container': 'docs/source/',
+    'version': 'main'
+}
+
+# Needed to be able to set mentions from sphinx docs.
+confluence_mentions = {
+}
+
+# confluence_asset_force_standalone = True
+# confluence_asset_override = True
+
+# Needed to upload different mime types.
+confluence_additional_mime_types = [
+]
+
+confluence_editor = 'v2'
+confluence_full_width = False
+
+# Since this might contain secrets, it is better to avoid having it hardcoded here and use environment variables or other means.
+confluence_server_url = ''
+confluence_server_user = ''
+confluence_server_pass = ''
+{%- endif %}
+
+# -- Options for HTML output -------------------------------------------------
+# https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
+
+html_theme = 'alabaster'
+html_static_path = ['_static']
